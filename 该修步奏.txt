@@ -1,0 +1,34 @@
+1    $ sudo vi /boot/cmdline.txt
+
+After opening, change the following contents:
+
+dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
+
+to£º
+
+dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
+
+The same way to modify / etc / inittab:
+
+2   $ sudo vi /etc/inittab
+
+Comment out or delete the following line (usually the last line):
+
+# T0: 23: respawn :/ sbin / getty-L ttyAMA0 115200 vt100
+
+Then save and exit, the modification is done. Next, download and unzip the SIM900 GSM / GRPS module operation library that we can provided. If the zipped folder is placed on desktop, enter into the folder:
+
+3   cd /home/pi/Desktop/ITEADGSM
+
+Install the library£º
+
+make install
+
+Thus the library is installed. If you want to use the library later on, you only need to include GSM.h file in your project files and to add lITEADGSM parameters when compiling.
+For example, to compile a sample file in the library folder on the desktop:
+
+4   gcc GSMDemo.c -o GSMDemo -lITEADGSM
+
+After compilation, you can run the program:
+
+sudo./ GSMDemo
